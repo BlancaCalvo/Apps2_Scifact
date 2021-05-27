@@ -72,7 +72,7 @@ def evaluate(model, dataset, batch_size, tokenizer):
             logits = model(**encoded_dict)[0] # get binary logits: either True or False
             targets.extend(batch['is_evidence'].float().tolist())
             outputs.extend(logits.argmax(dim=1).tolist())
-            print(outputs) # at the beginning always predicts 0, give it more epochs
+            #print(outputs) # at the beginning always predicts 0, give it more epochs
     return f1_score(targets, outputs, zero_division=0),\
            precision_score(targets, outputs, zero_division=0),\
            recall_score(targets, outputs, zero_division=0)
@@ -83,13 +83,13 @@ def main():
     parser.add_argument('--corpus', type=str, default = 'data/corpus.jsonl', required=False)
     parser.add_argument('--train', type=str, default = 'data/claims_train.jsonl', required=False)
     parser.add_argument('--dev', type=str, default = 'data/claims_dev.jsonl', required=False)
-    parser.add_argument('--dest', type=str, required=False, default = 'my_stuff/model/', help='Folder to save the weights')
+    parser.add_argument('--dest', type=str, required=False, default = 'models/distil/', help='Folder to save the weights')
     parser.add_argument('--model', type=str, default='distilbert-base-uncased')
     parser.add_argument('--epochs', type=int, default=20)
     args = parser.parse_args()
 
-    trainset = SciFactRationaleSelectionDataset(args.corpus, args.train)[0:100]
-    devset = SciFactRationaleSelectionDataset(args.corpus, args.dev)[0:25]
+    trainset = SciFactRationaleSelectionDataset(args.corpus, args.train)#[0:100]
+    devset = SciFactRationaleSelectionDataset(args.corpus, args.dev)#[0:25]
 
     print(len(trainset))
     print(trainset[1]) # TRUE EXAMPLE
@@ -108,7 +108,7 @@ def main():
         model.train() # train
         t = tqdm(DataLoader(trainset, batch_size=batch_size, shuffle=True)) # shuffle and create the batches
         for i, batch in enumerate(t): # for each batch
-            print(i)
+            #print(i)
             encoded_dict = encode(batch['claim'], batch['sentence'], tokenizer) # encode like sentence [SEP] claim
             loss, logits = model(**encoded_dict, labels=batch['is_evidence'].long().to(device)) # run the model
             loss.backward() # backpropagate the loss

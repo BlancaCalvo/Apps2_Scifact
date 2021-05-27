@@ -113,13 +113,13 @@ def main():
     parser.add_argument('--corpus', type=str, default='data/corpus.jsonl', required=False)
     parser.add_argument('--train', type=str, default='data/claims_train.jsonl', required=False)
     parser.add_argument('--dev', type=str, default='data/claims_dev.jsonl', required=False)
-    parser.add_argument('--dest', type=str, required=False, default='my_stuff/model/', help='Folder to save the weights')
+    parser.add_argument('--dest', type=str, required=False, default='models/distil_inference/', help='Folder to save the weights')
     parser.add_argument('--model', type=str, default='distilbert-base-uncased')
     parser.add_argument('--epochs', type=int, default=20)
     args = parser.parse_args()
 
-    trainset = SciFactLabelPredictionDataset(args.corpus, args.train)[0:100]
-    devset = SciFactLabelPredictionDataset(args.corpus, args.dev)[0:25]
+    trainset = SciFactLabelPredictionDataset(args.corpus, args.train)#[0:100]
+    devset = SciFactLabelPredictionDataset(args.corpus, args.dev)#[0:25]
 
     batch_size = 8
     tokenizer = AutoTokenizer.from_pretrained(args.model)
