@@ -83,7 +83,7 @@ def main():
     parser.add_argument('--corpus', type=str, default = 'data/corpus.jsonl', required=False)
     parser.add_argument('--train', type=str, default = 'data/claims_train.jsonl', required=False)
     parser.add_argument('--dev', type=str, default = 'data/claims_dev.jsonl', required=False)
-    parser.add_argument('--dest', type=str, required=False, default = 'models/distil/', help='Folder to save the weights')
+    parser.add_argument('--dest', type=str, required=False, default = 'models/distil/', help='Folder to save the model')
     parser.add_argument('--model', type=str, default='distilbert-base-uncased')
     parser.add_argument('--epochs', type=int, default=20)
     args = parser.parse_args()
@@ -115,10 +115,11 @@ def main():
             if (i + 1) % (256 // batch_size) == 0: # gradient accumulation
                 optimizer.step()
                 optimizer.zero_grad()
-                #t.set_description(f'Epoch {e}, iter {i}, loss: {round(loss.item(), 4)}')
+                t.set_description(f'Epoch {e}, iter {i}, loss: {round(loss.item(), 4)}')
         scheduler.step()
         train_score = evaluate(model, trainset, batch_size, tokenizer)
         print(f'Epoch {e}, train f1: %.4f, precision: %.4f, recall: %.4f' % train_score)
+        #print(f'Epoch {e}, train loss: %.4f' % loss)
         dev_score = evaluate(model, devset, batch_size, tokenizer)
         print(f'Epoch {e}, dev f1: %.4f, precision: %.4f, recall: %.4f' % dev_score)
         # Save
