@@ -31,11 +31,17 @@ for data, prediction in zip(dataset, label_prediction):
     claim_id = data['id']
     for doc_id, pred in prediction['labels'].items():
         pred_label = pred['label']
+        #true_label = data['evidence'].get(doc_id)[0]['label'] #{es['label'] for es in data['evidence'].get(doc_id) or []}
         true_label = {es['label'] for es in data['evidence'].get(doc_id) or []}
+        #print(LABELS[pred_label])
+        #print(true_label)
         assert len(true_label) <= 1, 'Currently support only one label per doc'
-        true_label = next(iter(true_label)) if true_label else 'NOT_ENOUGH_INFO'
+        true_label = next(iter(true_label)) if true_label else 'NOT_ENOUGH_INFO' # if one other document has a different label, change it to that??
         pred_labels.append(LABELS[pred_label])
         true_labels.append(LABELS[true_label])
+
+print(pred_labels)
+print(true_labels)
 
 print(f'Accuracy           {round(sum([pred_labels[i] == true_labels[i] for i in range(len(pred_labels))]) / len(pred_labels), 4)}')
 print(f'Macro F1:          {f1_score(true_labels, pred_labels, average="macro").round(4)}')

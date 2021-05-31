@@ -41,9 +41,9 @@ def is_correct(pred_sentence, pred_sentences, gold_sets):
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--corpus', type=str, required=True)
-parser.add_argument('--dataset', type=str, required=True)
-parser.add_argument('--rationale-selection', type=str, required=True)
+parser.add_argument('--corpus', type=str, default='data/corpus.jsonl', required=False)
+parser.add_argument('--dataset', type=str, default='data/claims_dev.jsonl', required=False)
+parser.add_argument('--rationale-selection', type=str, default='predictions/predicted_rationale_dev.jsonl', required=False)
 args = parser.parse_args()
 
 

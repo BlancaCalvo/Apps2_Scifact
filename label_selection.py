@@ -9,7 +9,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--corpus', type=str, default='data/corpus.jsonl', required=False)
 parser.add_argument('--dataset', type=str, default='data/claims_dev.jsonl', required=False)
 parser.add_argument('--model', type=str, default='models/distil_inference/epoch-19-f1-5594/', required=False)
-parser.add_argument('--rationale-selection', type=str, default='predictions/predicted_rationale_dev.jsonl', required=False)
+parser.add_argument('--rationale-selection', type=str, default='predictions/rationale_with_nei.jsonl', required=False)
 parser.add_argument('--mode', type=str, default='claim_and_rationale', choices=['claim_and_rationale', 'only_claim', 'only_rationale'])
 parser.add_argument('--output', type=str, default='predictions/predicted_label_dev.jsonl', required=False)
 args = parser.parse_args()
@@ -61,7 +61,7 @@ with torch.no_grad():
         claim = data['claim']
         results = {}
         for doc_id, indices in selection['evidence'].items():
-            if not indices:
+            if not indices: # this will never happen because I asked for 3 rationales per claim
                 results[doc_id] = {'label': 'NOT_ENOUGH_INFO', 'confidence': 1}
             else:
                 evidence = ' '.join([corpus[int(doc_id)]['abstract'][i] for i in indices])

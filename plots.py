@@ -11,25 +11,33 @@ precision_dev_rat = [0.0000, 0.0000, 0.0000, 0.5725, 0.5360, 0.5678, 0.5426, 0.5
 f1_train_rat = [0.0000,0.0000,0.0000,0.3970,0.5818,0.6354,0.7596,0.7986,0.8352,0.8597,0.8942,0.8954,0.9180,0.9300,0.9347,0.9405,0.9397,0.9424,0.9426,0.9436]
 f1_dev_rat = [0.0000,0.0000,0.0000,0.3135,0.4627,0.4851,0.5578,0.5919,0.5889,0.5811,0.5976,0.6170,0.6183,0.6313,0.6304,0.6391,0.6384,0.6433,0.6453,0.6445]
 
-plt.figure()
-plt.plot(epochs,f1_dev_rat)
-plt.plot(epochs,f1_train_rat)
-plt.show()
+#plt.figure()
+#plt.plot(epochs,f1_dev_rat)
+#plt.plot(epochs,f1_train_rat)
+#plt.show()
+
+#plt.figure()
+#plt.plot(epochs,recall_dev_rat)
+#plt.plot(epochs,recall_train_rat)
+#plt.show()
+
+#plt.figure()
+#plt.plot(epochs,precision_dev_rat)
+#plt.plot(epochs,precision_train_rat)
+#plt.show()
+
+loss_train_rat = [0.7758,0.5215,0.4255,0.1786,0.2788,0.0887,0.2542,0.2639,0.3059,0.0736,0.3019,0.478,0.2401,0.3117,0.1824,0.1125,0.1697,0.0531,0.0058,0.021]
 
 plt.figure()
-plt.plot(epochs,recall_dev_rat)
-plt.plot(epochs,recall_train_rat)
+#plt.plot(epochs,loss_dev_inf)
+plt.plot(epochs,loss_train_rat)
 plt.show()
 
-plt.figure()
-plt.plot(epochs,precision_dev_rat)
-plt.plot(epochs,precision_train_rat)
-plt.show()
 
 #loss_train_inf = []
-loss_dev_inf = [1.0804,1.1474,1.09,1.0714,0.9141,0.8236,1.0273,0.6286,0.6684,0.4872,0.8329,0.4695,0.5448,0.2859,0.3122,0.5005,0.3322,0.5249,0.2991,0.4981]
+loss_train_inf = [1.0804,1.1474,1.09,1.0714,0.9141,0.8236,1.0273,0.6286,0.6684,0.4872,0.8329,0.4695,0.5448,0.2859,0.3122,0.5005,0.3322,0.5249,0.2991,0.4981]
 
 plt.figure()
-plt.plot(epochs,loss_dev_inf)
-#plt.plot(epochs,loss_train_inf)
+#plt.plot(epochs,loss_dev_inf)
+plt.plot(epochs,loss_train_inf)
 plt.show()

@@ -7,12 +7,12 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--corpus', type=str, default='data/corpus.jsonl', required=False)
-parser.add_argument('--dataset', type=str, required=True)
+parser.add_argument('--dataset', type=str, default='data/claims_dev.jsonl', required=False)
 parser.add_argument('--model', type=str, default='models/distil/epoch-19-f1-6445/', required=False)
 parser.add_argument('--threshold', type=float, default=0.5, required=False)
-parser.add_argument('--output', type=str, required=True)
+parser.add_argument('--output', type=str, default='predictions/predicted_rationale_dev.jsonl', required=False)
 parser.add_argument('--include-nei', action='store_true')
-parser.add_argument('--abstract_store', type=str, required=True)
+parser.add_argument('--abstract_store', type=str, default = 'predictions/abstract_dev.jsonl', required=False)
 parser.add_argument('--k_rationales', type=int, default=None, required=False)
 args = parser.parse_args()
 
